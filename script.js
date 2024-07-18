@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         removeBtn.onclick = () => {
             taskList.removeChild(li);
             // Update tasks in Local Storage when removing
-            updateTasksInLocalStorage();
+            removeTaskFromLocalStorage(taskText);
         };
 
         // Append the remove button to the li element
@@ -62,6 +62,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (newTask) {
             tasks.push(newTask);
         }
+
+        // Save updated tasks array to Local Storage
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    // Function to remove task from Local Storage
+    function removeTaskFromLocalStorage(taskText) {
+        // Get existing tasks from Local Storage
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+        // Filter out the task to be removed
+        tasks = tasks.filter(task => task !== taskText);
 
         // Save updated tasks array to Local Storage
         localStorage.setItem('tasks', JSON.stringify(tasks));
