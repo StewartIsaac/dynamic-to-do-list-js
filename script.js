@@ -4,15 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const taskInput = document.getElementById('task-input');
     const taskList = document.getElementById('task-list');
 
-    // Check Local Storage for existing tasks
-    const tasksFromStorage = localStorage.getItem('tasks');
-    
-    if (tasksFromStorage !== null) {
-        const parsedTasks = JSON.parse(tasksFromStorage);
-
-        // Loop through tasks and add them to the list
-        parsedTasks.forEach(task => addTask(task, false)); // 'false' indicates not to save again to Local Storage
-    }
+    // Load tasks from Local Storage
+    loadTasks();
 
     // Function for adding new tasks to the list
     function addTask(taskText = taskInput.value.trim(), save = true) {
@@ -50,6 +43,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Save the task to Local Storage if save is true
         if (save) {
             updateTasksInLocalStorage(taskText);
+        }
+    }
+
+    // Function to load tasks from Local Storage
+    function loadTasks() {
+        const tasksFromStorage = localStorage.getItem('tasks');
+        
+        if (tasksFromStorage !== null) {
+            const parsedTasks = JSON.parse(tasksFromStorage);
+
+            // Loop through tasks and add them to the list
+            parsedTasks.forEach(task => addTask(task, false)); // 'false' indicates not to save again to Local Storage
         }
     }
 
