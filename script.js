@@ -13,32 +13,37 @@ document.addEventListener('DOMContentLoaded', function() {
         if (taskText === "") {
             alert("Enter a task");
             return;
+        } else {
+            // Create a new li element and set its textContent to taskText
+            let li = document.createElement('li');
+            li.textContent = taskText;
+
+            // Create a new button for removing the task
+            let removeBtn = document.createElement('button');
+            removeBtn.classList.add('remove-btn');
+            removeBtn.textContent = 'Remove';
+
+            // Assign an onclick event to the remove button to remove the li element from taskList
+            removeBtn.onclick = () => {
+                taskList.removeChild(li);
+                // Update tasks in Local Storage when removing
+                removeTaskFromLocalStorage(taskText);
+            };
+
+            // Append the remove button to the li element
+            li.appendChild(removeBtn);
+
+            // Append the li element to the taskList
+            taskList.appendChild(li);
+
+            // Clear the task input field
+            taskInput.value = "";
         }
 
-        // Create a new li element and set its textContent to taskText
-        let li = document.createElement('li');
-        li.textContent = taskText;
+        const element = document.getElementById("")
+        element.classList.add("")
 
-        // Create a new button for removing the task
-        let removeBtn = document.createElement('button');
-        removeBtn.className = 'remove-btn';
-        removeBtn.textContent = 'Remove';
-
-        // Assign an onclick event to the remove button to remove the li element from taskList
-        removeBtn.onclick = () => {
-            taskList.removeChild(li);
-            // Update tasks in Local Storage when removing
-            removeTaskFromLocalStorage(taskText);
-        };
-
-        // Append the remove button to the li element
-        li.appendChild(removeBtn);
-
-        // Append the li element to the taskList
-        taskList.appendChild(li);
-
-        // Clear the task input field
-        taskInput.value = "";
+        
 
         // Save the task to Local Storage if save is true
         if (save) {
